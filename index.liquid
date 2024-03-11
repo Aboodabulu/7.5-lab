@@ -3,5 +3,33 @@ layout: layout.liquid
 title: 11ty Boilerplate
 ---
 
-<h1>Yet Another 11ty <strong>Boilerplate</strong></h1>
-<img alt="pine" src="/images/pine.png" width="50" />
+
+
+
+
+<div x-data="{thumbImage: $fetchjson('https://dummyjson.com/products/1', jsonItem='thumbnail')}" class="max-w-sm mx-auto">
+    <img alt="thumbnail" x-bind:src="thumbImage" class="rounded-lg shadow-lg" />
+</div>
+
+<div x-data="{
+        prodDesc: '',
+        init() {
+            fetch('https://dummyjson.com/products/1')
+                .then(response => response.json())
+                .then(data => this.prodDesc = data.description);
+        }
+    }" x-init="init()" class="max-w-md mx-auto mt-5">
+    <p x-text="prodDesc" class="text-gray-600 text-base"></p>
+</div>
+
+<div x-data="{
+        Price: '',
+        init() {
+            fetch('https://dummyjson.com/products/1')
+                .then(response => response.json())
+                .then(data => this.Price = `$${data.price}`);
+        }
+    }" x-init="init()" class="max-w-md mx-auto mt-5">
+    <p x-text="Price" class="text-green-500 font-bold text-xl"></p>
+</div>
+
